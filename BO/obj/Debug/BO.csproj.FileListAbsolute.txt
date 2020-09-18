@@ -1,0 +1,5 @@
+C:\Users\sbouc2019\Downloads\BO\bin\Debug\BO.dll
+C:\Users\sbouc2019\Downloads\BO\bin\Debug\BO.pdb
+C:\Users\sbouc2019\Downloads\BO\obj\Debug\BO.csprojAssemblyReference.cache
+C:\Users\sbouc2019\Downloads\BO\obj\Debug\BO.dll
+C:\Users\sbouc2019\Downloads\BO\obj\Debug\BO.pdb

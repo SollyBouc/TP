@@ -1,0 +1,28 @@
+﻿@model TPPiz.Models.PizzaCreateViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+
+    @Html.HiddenFor(model => model.Pizza.Id)
+
+    @Html.Partial("_PizzaDisplay")
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
