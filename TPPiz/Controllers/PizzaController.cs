@@ -104,7 +104,11 @@ namespace TPPiz.Controllers
         // GET: Pizza/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+
+            PizzaCreateViewModel vm = new PizzaCreateViewModel();
+            vm.Pizza = FakeDb.Instance.Pizzas.FirstOrDefault(x => x.Id == id);
+            
+            return View(vm);;
         }
 
         // POST: Pizza/Delete/5
@@ -113,8 +117,8 @@ namespace TPPiz.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
+                Pizza pizza = FakeDb.Instance.Pizzas.FirstOrDefault(x => x.Id == id);
+                FakeDb.Instance.Pizzas.Remove(pizza);
                 return RedirectToAction("Index");
             }
             catch
