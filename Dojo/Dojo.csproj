@@ -133,6 +133,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009211424127_InitialCreate.cs" />
+    <Compile Include="Migrations\202009211424127_InitialCreate.Designer.cs">
+      <DependentUpon>202009211424127_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009211440229_Mig1.cs" />
+    <Compile Include="Migrations\202009211440229_Mig1.Designer.cs">
+      <DependentUpon>202009211440229_Mig1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\SamouraisVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -184,7 +194,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -204,6 +213,14 @@
       <Project>{0bba0441-0ab7-4112-946b-521c9cec7367}</Project>
       <Name>BO-Dojo</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202009211424127_InitialCreate.resx">
+      <DependentUpon>202009211424127_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009211440229_Mig1.resx">
+      <DependentUpon>202009211440229_Mig1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

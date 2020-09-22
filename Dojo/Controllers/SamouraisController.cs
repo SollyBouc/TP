@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BO;
 using Dojo.Data;
+using Dojo.Models;
 
 namespace Dojo.Controllers
 {
@@ -28,18 +29,25 @@ namespace Dojo.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Samourai samourai = db.Samourais.Find(id);
-            if (samourai == null)
+
+            SamouraisVM vm = new SamouraisVM();
+
+            vm.Samourai = db.Samourais.FirstOrDefault(x => x.Id == id);
+
+            if (vm.Samourai == null)
             {
                 return HttpNotFound();
             }
-            return View(samourai);
+            return View(vm);
         }
 
         // GET: Samourais/Create
         public ActionResult Create()
         {
-            return View();
+            SamouraisVM vm = new SamouraisVM();
+
+            vm.Armes = db.Armes.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
+            return View(vm);
         }
 
         // POST: Samourais/Create
@@ -47,31 +55,41 @@ namespace Dojo.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Force,Nom")] Samourai samourai)
+        public ActionResult Create(SamouraisVM vm)
         {
             if (ModelState.IsValid)
             {
+                Samourai samourai = vm.Samourai;
+
+                samourai.Arme = db.Armes.FirstOrDefault(x => x.Id == vm.IdArme);
                 db.Samourais.Add(samourai);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(samourai);
+            return View(vm);
         }
 
         // GET: Samourais/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            
+            SamouraisVM vm = new SamouraisVM();
+
+            vm.Samourai = db.Samourais.FirstOrDefault(x => x.Id == id);
+
+            vm.Armes = db.Armes.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
+            
+
+            if (vm.Samourai.Arme != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                vm.IdArme = vm.Samourai.Arme.Id;
             }
-            Samourai samourai = db.Samourais.Find(id);
-            if (samourai == null)
-            {
-                return HttpNotFound();
-            }
-            return View(samourai);
+
+            
+            
+            return View(vm);
         }
 
         // POST: Samourais/Edit/5
@@ -79,15 +97,21 @@ namespace Dojo.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Force,Nom")] Samourai samourai)
+        public ActionResult Edit(SamouraisVM vm)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(samourai).State = EntityState.Modified;
+                db.Entry(vm.Samourai).State = EntityState.Modified;
+                Samourai samourai = db.Samourais.FirstOrDefault(x => x.Id == vm.Samourai.Id);
+                samourai.Nom = vm.Samourai.Nom;
+                samourai.Force = vm.Samourai.Force;
+                samourai.Arme = db.Armes.FirstOrDefault(x => x.Id == vm.IdArme);
+
+               
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(samourai);
+            return View();
         }
 
         // GET: Samourais/Delete/5
@@ -97,12 +121,20 @@ namespace Dojo.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Samourai samourai = db.Samourais.Find(id);
-            if (samourai == null)
+
+            SamouraisVM vm = new SamouraisVM();
+
+            vm.Samourai = db.Samourais.FirstOrDefault(x => x.Id == id);
+
+
+            
+
+
+            if (vm.Samourai == null)
             {
                 return HttpNotFound();
             }
-            return View(samourai);
+            return View(vm);
         }
 
         // POST: Samourais/Delete/5

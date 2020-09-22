@@ -1,4 +1,4 @@
-﻿@model BO.Samourai
+﻿@model Dojo.Models.SamouraisVM
 
 @{
     ViewBag.Title = "Details";
@@ -10,20 +10,29 @@
     <h4>Samourai</h4>
     <hr />
     <dl class="dl-horizontal">
+        @Html.HiddenFor(model => model.Samourai.Id)
         <dt>
-            @Html.DisplayNameFor(model => model.Force)
+            @Html.DisplayNameFor(model => model.Samourai.Force)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Force)
+            @Html.DisplayFor(model => model.Samourai.Force)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Nom)
+            @Html.DisplayNameFor(model => model.Samourai.Nom)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Nom)
+            @Html.DisplayFor(model => model.Samourai.Nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Samourai.Arme)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Samourai.Arme.Nom)
         </dd>
 
     </dl>
