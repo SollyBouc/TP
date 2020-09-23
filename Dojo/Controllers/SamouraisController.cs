@@ -33,6 +33,7 @@ namespace Dojo.Controllers
             SamouraisVM vm = new SamouraisVM();
 
             vm.Samourai = db.Samourais.FirstOrDefault(x => x.Id == id);
+            
 
             if (vm.Samourai == null)
             {
@@ -47,6 +48,7 @@ namespace Dojo.Controllers
             SamouraisVM vm = new SamouraisVM();
 
             vm.Armes = db.Armes.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
+            vm.Arts = db.ArtMartials.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
             return View(vm);
         }
 
@@ -61,12 +63,24 @@ namespace Dojo.Controllers
             {
                 Samourai samourai = vm.Samourai;
 
+               
+                
                 samourai.Arme = db.Armes.FirstOrDefault(x => x.Id == vm.IdArme);
+
+
+                if (samourai.Arts != null)
+                {
+                    samourai.Arts = db.ArtMartials.Where(x => vm.IdsArts.Contains(x.Id)).ToList();
+                }
+                
                 db.Samourais.Add(samourai);
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            vm.Armes = db.Armes.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
+            vm.Arts = db.ArtMartials.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
 
             return View(vm);
         }
@@ -76,15 +90,22 @@ namespace Dojo.Controllers
         {
             
             SamouraisVM vm = new SamouraisVM();
+                        
+            vm.Armes = db.Armes.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
+
+            vm.Arts = db.ArtMartials.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
 
             vm.Samourai = db.Samourais.FirstOrDefault(x => x.Id == id);
-
-            vm.Armes = db.Armes.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
-            
 
             if (vm.Samourai.Arme != null)
             {
                 vm.IdArme = vm.Samourai.Arme.Id;
+            }
+
+            if (vm.Samourai.Arts.Any())
+            {
+                
+                vm.IdsArts = vm.Samourai.Arts.Select(x => x.Id).ToList();
             }
 
             
@@ -102,20 +123,39 @@ namespace Dojo.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(vm.Samourai).State = EntityState.Modified;
-                Samourai samourai = db.Samourais.FirstOrDefault(x => x.Id == vm.Samourai.Id);
+
+
+
+
+                Samourai samourai = db.Samourais.Include(x => x.Arme).Include(z => z.Arts).FirstOrDefault(x => x.Id == vm.Samourai.Id);
+
                 samourai.Nom = vm.Samourai.Nom;
                 samourai.Force = vm.Samourai.Force;
+
+
                 samourai.Arme = db.Armes.FirstOrDefault(x => x.Id == vm.IdArme);
+
+                if (samourai.Arts != null)
+                {
+                    samourai.Arts = db.ArtMartials.Where(x => vm.IdsArts.Contains(x.Id)).ToList();
+                }
+                
+                
 
                
                 db.SaveChanges();
                 return RedirectToAction("Index");
+
+               
             }
-            return View();
+            vm.Armes = db.Armes.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
+
+            vm.Arts = db.ArtMartials.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
+            return View(vm);
         }
 
         // GET: Samourais/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {

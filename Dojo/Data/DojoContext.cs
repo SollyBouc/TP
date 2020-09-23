@@ -17,10 +17,24 @@ namespace Dojo.Data
     
         public DojoContext() : base("name=DojoContext")
         {
-        }
+        } 
+
+      
 
         public System.Data.Entity.DbSet<BO.Samourai> Samourais { get; set; }
 
         public System.Data.Entity.DbSet<BO.Arme> Armes { get; set; }
+
+        public System.Data.Entity.DbSet<BO.ArtMartial> ArtMartials { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<BO.Samourai>().HasOptional(x => x.Arme);
+
+            modelBuilder.Entity<BO.Samourai>().HasMany(z => z.Arts).WithMany();
+          
+        }
+
+        
     }
 }

@@ -20,6 +20,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Arme)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Arts)
+        </th>
         <th></th>
     </tr>
 
@@ -45,6 +48,17 @@ foreach (var item in Model) {
         @if (item.Arme != null)
         {
             @Html.DisplayFor(modelItem => item.Arme.Nom)
+        }
+
+    </td>
+    <td>
+        @if (item.Arts != null)
+        {
+            foreach (var art in item.Arts)
+            {
+                @Html.DisplayFor(modelItem => art.Nom)<br />
+            }
+
         }
 
     </td>

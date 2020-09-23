@@ -1,4 +1,5 @@
 ﻿using BO;
+using Dojo.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,15 @@ namespace Dojo.Models
         
         public List<SelectListItem> Armes { get; set; } = new List<SelectListItem>();
 
+        [MyValidator(ErrorMessage = "Cette arme est déjà utilisée")]
         public int? IdArme { get; set; }
+
+        public List<SelectListItem> Arts { get; set; } = new List<SelectListItem>();
+
+        public List<int?> IdsArts { get; set; }
+
+        
+
+
     }
 }
