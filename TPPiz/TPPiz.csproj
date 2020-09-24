@@ -122,13 +122,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PizzaController.cs" />
-    <Compile Include="Database\FakeDb.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\PizzaCreateViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validation\MyValidator.cs" />
+    <Compile Include="Validation\ValidateurListeIngredients.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -171,6 +170,7 @@
     <Content Include="Views\Pizza\Delete.cshtml" />
     <Content Include="Views\Pizza\Index.cshtml" />
     <Content Include="Views\Shared\_PizzaDisplay.cshtml" />
+    <Content Include="Views\Pizza\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

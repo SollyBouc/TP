@@ -1,5 +1,6 @@
 ﻿
 using BO;
+using BO.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,9 +21,11 @@ namespace TPPiz.Models
 
         
         public List<SelectListItem> Ingredients { get; set; } = new List<SelectListItem>();
-        public List<int> IdsIngredients { get; set; }
+
+        [MyValidator]
+        [ValidateurListeIngredients]
+        public List<int> IdsIngredients { get; set; } = new List<int>();
         [Required]
-        [System.ComponentModel.DataAnnotations.MinLength(1, ErrorMessage = "Non")]
-        public int IdPate { get; set; }
+        public int? IdPate { get; set; }
     }
 }

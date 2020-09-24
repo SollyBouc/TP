@@ -8,6 +8,6 @@
     "\\TPPiz\\Views\\Pizza",
     "\\TPPiz\\Views\\Shared"
   ],
-  "SelectedNode": "\\BO\\Pizza.cs",
+  "SelectedNode": "\\TPPiz\\Controllers\\PizzaController.cs",
   "PreviewInSolutionExplorer": false
 }

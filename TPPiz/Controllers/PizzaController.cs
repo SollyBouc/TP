@@ -1,8 +1,6 @@
 ﻿using BO;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TPPiz.Database;
 using TPPiz.Models;
@@ -20,7 +18,9 @@ namespace TPPiz.Controllers
         // GET: Pizza/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            PizzaCreateViewModel vm = new PizzaCreateViewModel();
+            vm.Pizza = FakeDb.Instance.Pizzas.FirstOrDefault(x => x.Id == id);
+            return View(vm);
         }
 
         // GET: Pizza/Create
@@ -37,27 +37,37 @@ namespace TPPiz.Controllers
         [HttpPost]
         public ActionResult Create(PizzaCreateViewModel vm)
         {
-            try
-            {
-                Pizza pizza = vm.Pizza;
+            
 
-                pizza.Pate = FakeDb.Instance.Pates.FirstOrDefault(x => x.Id == vm.IdPate);
+                if (ModelState.IsValid)
+                {
 
-                pizza.Ingredients = FakeDb.Instance.Ingredients.Where(x => vm.IdsIngredients.Contains(x.Id)).ToList();
 
-                pizza.Id = FakeDb.Instance.Pizzas.Count == 0 ? 1 : FakeDb.Instance.Pizzas.Max(x => x.Id) + 1;
+                    Pizza pizza = vm.Pizza;
 
-                FakeDb.Instance.Pizzas.Add(pizza);
+                    pizza.Pate = FakeDb.Instance.Pates.FirstOrDefault(x => x.Id == vm.IdPate);
 
-                return RedirectToAction("Index");
+                    pizza.Ingredients = FakeDb.Instance.Ingredients.Where(x => vm.IdsIngredients.Contains(x.Id)).ToList();
+
+                    pizza.Id = FakeDb.Instance.Pizzas.Count == 0 ? 1 : FakeDb.Instance.Pizzas.Max(x => x.Id) + 1;
+
+                    FakeDb.Instance.Pizzas.Add(pizza);
+
+                    return RedirectToAction("Index");
+                }
+
+                else
+                {
+                    vm.Pates = FakeDb.Instance.Pates.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
+                    vm.Ingredients = FakeDb.Instance.Ingredients.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
+                    return View(vm);
+                }
+
             }
-            catch (Exception)
-            {
-                vm.Pates = FakeDb.Instance.Pates.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
-                vm.Ingredients = FakeDb.Instance.Ingredients.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
-                return View(vm);
-            }
-        }
+           
+
+
+        
 
         // GET: Pizza/Edit/5
         public ActionResult Edit(int id)
@@ -107,8 +117,8 @@ namespace TPPiz.Controllers
 
             PizzaCreateViewModel vm = new PizzaCreateViewModel();
             vm.Pizza = FakeDb.Instance.Pizzas.FirstOrDefault(x => x.Id == id);
-            
-            return View(vm);;
+
+            return View(vm);
         }
 
         // POST: Pizza/Delete/5

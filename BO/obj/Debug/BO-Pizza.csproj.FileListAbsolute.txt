@@ -1,0 +1,5 @@
+C:\Users\sbouc2019\source\repos\WebApplication1\BO\bin\Debug\BO.dll
+C:\Users\sbouc2019\source\repos\WebApplication1\BO\bin\Debug\BO.pdb
+C:\Users\sbouc2019\source\repos\WebApplication1\BO\obj\Debug\BO-Pizza.csprojAssemblyReference.cache
+C:\Users\sbouc2019\source\repos\WebApplication1\BO\obj\Debug\BO.dll
+C:\Users\sbouc2019\source\repos\WebApplication1\BO\obj\Debug\BO.pdb
