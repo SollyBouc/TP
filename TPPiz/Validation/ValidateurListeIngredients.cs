@@ -14,6 +14,10 @@ namespace BO.Validation
         {
             bool result = true;
 
+
+
+
+
             //si la value, qui est la liste des IdsIngredients, est une liste d'int
             if (value is List<int>)
             {
@@ -30,6 +34,8 @@ namespace BO.Validation
 
             return result;
         }
+
+
 
         public override string FormatErrorMessage(string name)
         {
