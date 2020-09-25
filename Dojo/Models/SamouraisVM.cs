@@ -18,7 +18,7 @@ namespace Dojo.Models
 
         public string Nom { get; set; }
 
-        
+
         public List<SelectListItem> Armes { get; set; } = new List<SelectListItem>();
 
         [MyValidator(ErrorMessage = "Cette arme est déjà utilisée")]
@@ -28,7 +28,7 @@ namespace Dojo.Models
 
         public List<int?> IdsArts { get; set; }
 
-        
+
 
 
     }

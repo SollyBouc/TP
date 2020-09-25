@@ -97,7 +97,12 @@ namespace Dojo.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+
             Arme arme = db.Armes.Find(id);
+
+
+
             if (arme == null)
             {
                 return HttpNotFound();
@@ -111,9 +116,22 @@ namespace Dojo.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Arme arme = db.Armes.Find(id);
-            db.Armes.Remove(arme);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+
+
+            if (db.Samourais.Where(x => x.Arme.Id == id).Count() > 0)
+            {
+                ModelState.AddModelError("Nom", "Cette arme est utilisée par un samourai");
+                return View(arme);
+            }
+            else
+            {
+                db.Armes.Remove(arme);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+           
         }
 
         protected override void Dispose(bool disposing)
